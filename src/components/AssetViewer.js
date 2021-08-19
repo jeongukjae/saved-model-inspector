@@ -9,7 +9,7 @@ export default function AssetViewer({ assetFileDefList }) {
           <TableRow>
             <TableCell>File Name</TableCell>
             <TableCell>Tensor Name</TableCell>
-            <TableCell>Tensor Dtype</TableCell>
+            <TableCell>Tensor Data Type</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

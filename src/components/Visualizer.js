@@ -72,7 +72,7 @@ export default function Visualizer({ savedModelPb }) {
         {savedModelPb && (
           <>
             <ToggleButton setExpand={setAssetFileViewCollapse}>Asset File Lists</ToggleButton>
-            <Collapse in={assetFileViewCollapse} unmountOnExit>
+            <Collapse in={assetFileViewCollapse}>
               <AssetViewer assetFileDefList={savedModelPb.metaGraphsList[metaGraphIndex].assetFileDefList} />
             </Collapse>
           </>
