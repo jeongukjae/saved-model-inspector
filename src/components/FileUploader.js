@@ -1,0 +1,43 @@
+import Button from "@material-ui/core/Button"
+import Box from "@material-ui/core/Box"
+import { useState } from "react"
+import { SavedModel } from "../proto/tensorflow/core/protobuf/saved_model_pb"
+import { makeStyles } from "@material-ui/core/styles"
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    textAlign: "center",
+    padding: "30px 0px",
+  },
+}))
+
+export default function FileUploader({ onRead }) {
+  const classes = useStyles()
+  const [fileReader] = useState(new FileReader())
+
+  const handleFileChosen = (file) => {
+    fileReader.addEventListener("load", (event) => {
+      const savedModelPb = SavedModel.deserializeBinary(
+        event.target.result
+      ).toObject()
+      if (onRead) {
+        onRead(savedModelPb)
+      }
+    })
+    fileReader.readAsArrayBuffer(file)
+  }
+
+  return (
+    <Box className={classes.root}>
+      <Button variant="contained" component="label" color="secondary">
+        Upload saved_model.pb
+        <input
+          type="file"
+          hidden={true}
+          onChange={(e) => handleFileChosen(e.target.files[0])}
+          accept=".pb"
+        />
+      </Button>
+    </Box>
+  )
+}
