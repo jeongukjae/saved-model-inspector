@@ -1,0 +1,9 @@
+{
+  "short_name": "SavedModel Visualizer",
+  "name": "TensorFlow Saved Model Visualizer",
+  "icons": [],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
