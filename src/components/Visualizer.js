@@ -1,8 +1,21 @@
 import TabPanel from "./TabPanel"
 import { useState } from "react"
+import clsx from "clsx"
 import SignatureDefTab from "./SignatureDefTab"
 import AssetViewer from "./AssetViewer"
-import { makeStyles, Typography, Select, MenuItem, Box, Container, Tabs, Tab } from "@material-ui/core"
+import {
+  makeStyles,
+  Typography,
+  Select,
+  MenuItem,
+  Box,
+  Container,
+  Tabs,
+  Tab,
+  Button,
+  Collapse,
+} from "@material-ui/core"
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
 
 const useStyles = makeStyles({
   selectBox: {
@@ -19,6 +32,8 @@ export default function Visualizer({ savedModelPb }) {
   const [metaGraphIndex, setMetaGraphIndex] = useState(0)
   const handleSetMetaGraphIndex = (e) => setMetaGraphIndex(e.target.value)
   const classes = useStyles()
+
+  const [assetFileViewCollapse, setAssetFileViewCollapse] = useState(false)
 
   return (
     <Container maxWidth="md">
@@ -54,7 +69,14 @@ export default function Visualizer({ savedModelPb }) {
       </Tabs>
       <TabPanel value={value} index={0}>
         {/* Meta Infos */}
-        {savedModelPb && <AssetViewer assetFileDefList />}
+        {savedModelPb && (
+          <>
+            <ToggleButton setExpand={setAssetFileViewCollapse}>Asset File Lists</ToggleButton>
+            <Collapse in={assetFileViewCollapse} unmountOnExit>
+              <AssetViewer assetFileDefList={savedModelPb.metaGraphsList[metaGraphIndex].assetFileDefList} />
+            </Collapse>
+          </>
+        )}
       </TabPanel>
       <TabPanel value={value} index={1}>
         {savedModelPb && (
@@ -65,5 +87,41 @@ export default function Visualizer({ savedModelPb }) {
         {/* Model Graph */}
       </TabPanel>
     </Container>
+  )
+}
+
+const useToggleStyle = makeStyles((theme) => ({
+  expand: {
+    transform: "rotate(0deg)",
+    marginLeft: "auto",
+    transition: theme.transitions.create("transform", {
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
+  expandOpen: {
+    transform: "rotate(180deg)",
+  },
+}))
+
+function ToggleButton({ setExpand, children }) {
+  const classes = useToggleStyle()
+  const [expanded, setExpanded] = useState(false)
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded)
+    if (setExpand) setExpand(expanded)
+  }
+
+  return (
+    <Button onClick={handleExpandClick} aria-expanded={expanded} aria-label="show more">
+      <ExpandMoreIcon
+        className={clsx(classes.expand, {
+          [classes.expandOpen]: expanded,
+        })}
+      />
+      <Typography variant="p" component="div">
+        {children}
+      </Typography>
+    </Button>
   )
 }

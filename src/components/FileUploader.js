@@ -32,7 +32,7 @@ export default function FileUploader({ onRead, handleReadingState }) {
   return (
     <Box className={classes.root}>
       <Button variant="contained" component="label" color="secondary">
-        Upload saved_model.pb
+        Inspect saved_model.pb
         <input type="file" hidden={true} onChange={(e) => handleFileChosen(e.target.files[0])} accept=".pb" />
       </Button>
     </Box>
