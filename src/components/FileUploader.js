@@ -19,9 +19,10 @@ export default function FileUploader({ onRead, handleReadingState }) {
     if (handleReadingState) handleReadingState(true)
 
     fileReader.addEventListener("load", (event) => {
-      const savedModelPb = SavedModel.deserializeBinary(
-        event.target.result
-      ).toObject()
+      const savedModelPb = SavedModel.deserializeBinary(event.target.result).toObject()
+
+      console.log(savedModelPb)
+
       if (handleReadingState) handleReadingState(false)
       if (onRead) onRead(savedModelPb)
     })
@@ -32,12 +33,7 @@ export default function FileUploader({ onRead, handleReadingState }) {
     <Box className={classes.root}>
       <Button variant="contained" component="label" color="secondary">
         Upload saved_model.pb
-        <input
-          type="file"
-          hidden={true}
-          onChange={(e) => handleFileChosen(e.target.files[0])}
-          accept=".pb"
-        />
+        <input type="file" hidden={true} onChange={(e) => handleFileChosen(e.target.files[0])} accept=".pb" />
       </Button>
     </Box>
   )

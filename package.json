@@ -31,9 +31,8 @@
       "prettier"
     ],
     "rules": {
-      "prettier/prettier": [
-        "error"
-      ]
+      "prettier/prettier": ["error"],
+      "max-len": [0, 120]
     }
   },
   "browserslist": {

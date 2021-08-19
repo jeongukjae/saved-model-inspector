@@ -19,10 +19,7 @@ export default function App() {
   return (
     <div>
       <Header />
-      <FileUploader
-        onRead={setSavedModelPb}
-        handleReadingState={setIsReading}
-      />
+      <FileUploader onRead={setSavedModelPb} handleReadingState={setIsReading} />
       {isReading ? (
         <Box margin={1} className={classes.progressRoot}>
           {" "}

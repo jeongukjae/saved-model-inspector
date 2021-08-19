@@ -33,11 +33,7 @@ function Row({ signatureDef }) {
     <>
       <TableRow className={classes.root}>
         <TableCell>
-          <IconButton
-            aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!open)}
-          >
+          <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
@@ -72,20 +68,10 @@ function Row({ signatureDef }) {
                         <code>{inputRow[0]}</code>
                       </TableCell>
                       <TableCell>
-                        <code>
-                          {Object.keys(DataType).find(
-                            (key) => DataType[key] === inputRow[1].dtype
-                          )}
-                        </code>
+                        <code>{Object.keys(DataType).find((key) => DataType[key] === inputRow[1].dtype)}</code>
                       </TableCell>
                       <TableCell>
-                        <code>
-                          [
-                          {inputRow[1].tensorShape.dimList
-                            .map((v) => v.size.toString())
-                            .join(", ")}
-                          ]
-                        </code>
+                        <code>[{inputRow[1].tensorShape.dimList.map((v) => v.size.toString()).join(", ")}]</code>
                       </TableCell>
                     </TableRow>
                   ))}
@@ -111,20 +97,10 @@ function Row({ signatureDef }) {
                         <code>{outputRow[0]}</code>
                       </TableCell>
                       <TableCell>
-                        <code>
-                          {Object.keys(DataType).find(
-                            (key) => DataType[key] === outputRow[1].dtype
-                          )}
-                        </code>
+                        <code>{Object.keys(DataType).find((key) => DataType[key] === outputRow[1].dtype)}</code>
                       </TableCell>
                       <TableCell>
-                        <code>
-                          [
-                          {outputRow[1].tensorShape.dimList
-                            .map((v) => v.size.toString())
-                            .join(", ")}
-                          ]
-                        </code>
+                        <code>[{outputRow[1].tensorShape.dimList.map((v) => v.size.toString()).join(", ")}]</code>
                       </TableCell>
                     </TableRow>
                   ))}
@@ -153,9 +129,7 @@ export default function SignatureTabDef({ signatureDefMapList }) {
         </TableHead>
         <TableBody>
           {signatureDefMapList &&
-            signatureDefMapList.map((value, index) => (
-              <Row key={`signature-def-${index}`} signatureDef={value} />
-            ))}
+            signatureDefMapList.map((value, index) => <Row key={`signature-def-${index}`} signatureDef={value} />)}
         </TableBody>
       </Table>
     </TableContainer>
