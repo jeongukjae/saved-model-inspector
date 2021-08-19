@@ -11,18 +11,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default function FileUploader({ onRead }) {
+export default function FileUploader({ onRead, handleReadingState }) {
   const classes = useStyles()
   const [fileReader] = useState(new FileReader())
 
   const handleFileChosen = (file) => {
+    if (handleReadingState) handleReadingState(true)
+
     fileReader.addEventListener("load", (event) => {
       const savedModelPb = SavedModel.deserializeBinary(
         event.target.result
       ).toObject()
-      if (onRead) {
-        onRead(savedModelPb)
-      }
+      if (handleReadingState) handleReadingState(false)
+      if (onRead) onRead(savedModelPb)
     })
     fileReader.readAsArrayBuffer(file)
   }
