@@ -33,7 +33,7 @@ export default function Visualizer({ savedModelPb }) {
   const handleSetMetaGraphIndex = (e) => setMetaGraphIndex(e.target.value)
   const classes = useStyles()
 
-  const [assetFileViewCollapse, setAssetFileViewCollapse] = useState(false)
+  const [assetFileViewCollapse, setAssetFileViewCollapse] = useState(true)
 
   return (
     <Container maxWidth="md">
@@ -92,14 +92,12 @@ export default function Visualizer({ savedModelPb }) {
 
 const useToggleStyle = makeStyles((theme) => ({
   expand: {
-    transform: "rotate(0deg)",
+    transform: "rotate(180deg)",
     marginLeft: "auto",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest,
-    }),
+    transition: theme.transitions.create("transform", { duration: theme.transitions.duration.shortest }),
   },
   expandOpen: {
-    transform: "rotate(180deg)",
+    transform: "rotate(0deg)",
   },
 }))
 
