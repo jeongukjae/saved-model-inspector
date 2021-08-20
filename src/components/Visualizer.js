@@ -1,5 +1,5 @@
 import TabPanel from "./TabPanel"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import clsx from "clsx"
 import SignatureDefTab from "./SignatureDefTab"
 import AssetViewer from "./AssetViewer"
@@ -103,11 +103,14 @@ const useToggleStyle = makeStyles((theme) => ({
 
 function ToggleButton({ setExpand, children }) {
   const classes = useToggleStyle()
-  const [expanded, setExpanded] = useState(false)
+  const [expanded, setExpanded] = useState(true)
+
+  useEffect(() => {
+    if (setExpand) setExpand(expanded)
+  }, [expanded, setExpand])
 
   const handleExpandClick = () => {
     setExpanded(!expanded)
-    if (setExpand) setExpand(expanded)
   }
 
   return (
