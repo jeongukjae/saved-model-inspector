@@ -32,7 +32,6 @@ function getListOfTableFromFirstChild(child, nodesList, key, localName = "") {
       nodesList[child.nodeId].userObject.identifier !== "_generic_user_object" &&
       nodesList[child.nodeId].userObject.identifier !== "trackable_list_wrapper")
   ) {
-    console.log(child, nodesList[child.nodeId].userObject)
     return []
   }
 
