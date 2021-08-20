@@ -1,5 +1,5 @@
 import { TableRow, TableCell, Table, TableBody, TableHead } from "@material-ui/core"
-import { DataType } from "../proto/tensorflow/core/framework/types_pb"
+import { DataType } from "../../proto/tensorflow/core/framework/types_pb"
 
 export default function AssetViewer({ assetFileDefList }) {
   return (

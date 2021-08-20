@@ -1,7 +1,7 @@
 import { useState } from "react"
 import clsx from "clsx"
 import SignatureDefTab from "./SignatureDefTab"
-import AssetViewer from "./AssetViewer"
+import AssetViewer from "./metainfos/AssetViewer"
 import {
   makeStyles,
   Typography,
@@ -15,12 +15,18 @@ import {
   Collapse,
 } from "@material-ui/core"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
+import OpListViewer from "./metainfos/OpListViewer"
 
 const useStyles = makeStyles({
   selectBox: {
     textAlign: "center",
     "& > *": {
       margin: 10,
+    },
+  },
+  list: {
+    "& > *": {
+      margin: "5px 0",
     },
   },
 })
@@ -32,6 +38,7 @@ export default function Visualizer({ savedModelPb }) {
   const handleSetMetaGraphIndex = (e) => setMetaGraphIndex(e.target.value)
   const classes = useStyles()
 
+  const [opListViewCollapse, setopListViewCollapse] = useState(false)
   const [assetFileViewCollapse, setAssetFileViewCollapse] = useState(false)
 
   return (
@@ -69,14 +76,50 @@ export default function Visualizer({ savedModelPb }) {
       <TabPanel value={value} index={0}>
         {/* Meta Infos */}
         {savedModelPb && (
-          <>
+          <Box margin={"10px 0"}>
+            <ul className={classes.list}>
+              <li>
+                <Typography variant="p" component="p">
+                  TensorFlow Version:{" "}
+                  <code>{savedModelPb.metaGraphsList[metaGraphIndex].metaInfoDef.tensorflowVersion}</code>
+                </Typography>
+              </li>
+              <li>
+                <Typography variant="p" component="p">
+                  TensorFlow Git Version:{" "}
+                  <code>{savedModelPb.metaGraphsList[metaGraphIndex].metaInfoDef.tensorflowGitVersion}</code>
+                </Typography>
+              </li>
+              <li>
+                <Typography variant="p" component="p">
+                  Tags: <code>[{savedModelPb.metaGraphsList[metaGraphIndex].metaInfoDef.tagsList.join(", ")}]</code>
+                </Typography>
+              </li>
+            </ul>
+          </Box>
+        )}
+
+        {savedModelPb && (
+          <Box margin={"10px 0"}>
+            <ToggleButton setExpand={setopListViewCollapse} expanded={opListViewCollapse}>
+              Operations used in this model
+            </ToggleButton>
+            <Collapse in={opListViewCollapse}>
+              <OpListViewer
+                opListDefList={savedModelPb.metaGraphsList[metaGraphIndex].metaInfoDef.strippedOpList.opList}
+              />
+            </Collapse>
+          </Box>
+        )}
+        {savedModelPb && (
+          <Box margin={"10px 0"}>
             <ToggleButton setExpand={setAssetFileViewCollapse} expanded={assetFileViewCollapse}>
               Asset File Lists
             </ToggleButton>
             <Collapse in={assetFileViewCollapse}>
               <AssetViewer assetFileDefList={savedModelPb.metaGraphsList[metaGraphIndex].assetFileDefList} />
             </Collapse>
-          </>
+          </Box>
         )}
       </TabPanel>
       <TabPanel value={value} index={1}>
