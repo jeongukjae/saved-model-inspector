@@ -16,6 +16,7 @@ import {
 } from "@material-ui/core"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
 import OpListViewer from "./metainfos/OpListViewer"
+import ObjectGraphDefNodeViewer from "./metainfos/ObjectGraphDefNodeViewer"
 
 const useStyles = makeStyles({
   selectBox: {
@@ -40,6 +41,7 @@ export default function Visualizer({ savedModelPb }) {
 
   const [opListViewCollapse, setopListViewCollapse] = useState(false)
   const [assetFileViewCollapse, setAssetFileViewCollapse] = useState(false)
+  const [objectGraphDefCollapse, setObjectGraphDefCollapse] = useState(false)
 
   return (
     <Container maxWidth="md">
@@ -118,6 +120,18 @@ export default function Visualizer({ savedModelPb }) {
             </ToggleButton>
             <Collapse in={assetFileViewCollapse}>
               <AssetViewer assetFileDefList={savedModelPb.metaGraphsList[metaGraphIndex].assetFileDefList} />
+            </Collapse>
+          </Box>
+        )}
+        {savedModelPb && (
+          <Box margin={"10px 0"}>
+            <ToggleButton setExpand={setObjectGraphDefCollapse} expanded={objectGraphDefCollapse}>
+              Object Graph Def Nodes
+            </ToggleButton>
+            <Collapse in={objectGraphDefCollapse}>
+              <ObjectGraphDefNodeViewer
+                nodesList={savedModelPb.metaGraphsList[metaGraphIndex].objectGraphDef.nodesList}
+              />
             </Collapse>
           </Box>
         )}
