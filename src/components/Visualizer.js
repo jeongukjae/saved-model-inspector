@@ -1,5 +1,4 @@
-import TabPanel from "./TabPanel"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import clsx from "clsx"
 import SignatureDefTab from "./SignatureDefTab"
 import AssetViewer from "./AssetViewer"
@@ -28,12 +27,12 @@ const useStyles = makeStyles({
 
 export default function Visualizer({ savedModelPb }) {
   const [value, setValue] = useState(0)
-  const handleChange = (event, newValue) => setValue(newValue)
+  const handleChange = (_, newValue) => setValue(newValue)
   const [metaGraphIndex, setMetaGraphIndex] = useState(0)
   const handleSetMetaGraphIndex = (e) => setMetaGraphIndex(e.target.value)
   const classes = useStyles()
 
-  const [assetFileViewCollapse, setAssetFileViewCollapse] = useState(true)
+  const [assetFileViewCollapse, setAssetFileViewCollapse] = useState(false)
 
   return (
     <Container maxWidth="md">
@@ -71,7 +70,9 @@ export default function Visualizer({ savedModelPb }) {
         {/* Meta Infos */}
         {savedModelPb && (
           <>
-            <ToggleButton setExpand={setAssetFileViewCollapse}>Asset File Lists</ToggleButton>
+            <ToggleButton setExpand={setAssetFileViewCollapse} expanded={assetFileViewCollapse}>
+              Asset File Lists
+            </ToggleButton>
             <Collapse in={assetFileViewCollapse}>
               <AssetViewer assetFileDefList={savedModelPb.metaGraphsList[metaGraphIndex].assetFileDefList} />
             </Collapse>
@@ -101,28 +102,39 @@ const useToggleStyle = makeStyles((theme) => ({
   },
 }))
 
-function ToggleButton({ setExpand, children }) {
+function ToggleButton({ expanded, setExpand, children }) {
   const classes = useToggleStyle()
-  const [expanded, setExpanded] = useState(true)
-
-  useEffect(() => {
-    if (setExpand) setExpand(expanded)
-  }, [expanded, setExpand])
 
   const handleExpandClick = () => {
-    setExpanded(!expanded)
+    if (setExpand) setExpand(!expanded)
   }
 
   return (
-    <Button onClick={handleExpandClick} aria-expanded={expanded} aria-label="show more">
-      <ExpandMoreIcon
-        className={clsx(classes.expand, {
-          [classes.expandOpen]: expanded,
-        })}
-      />
+    <Button onClick={handleExpandClick} aria-expanded={expanded}>
+      <ExpandMoreIcon className={clsx(classes.expand, { [classes.expandOpen]: expanded })} />
       <Typography variant="p" component="div">
         {children}
       </Typography>
     </Button>
+  )
+}
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box p={3}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
   )
 }
