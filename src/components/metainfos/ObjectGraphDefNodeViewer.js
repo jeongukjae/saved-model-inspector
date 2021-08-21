@@ -17,7 +17,13 @@ export default function ObjectGraphDefNodeViewer({ nodesList }) {
         </TableHead>
         <TableBody>
           {nodesList.map((node, index) => (
-            <NodeTableRow nodeId={node.nodeId} name={node.name} identifier={node.identifier} metadata={node.metadata} />
+            <NodeTableRow
+              key={`node-table-${index}`}
+              nodeId={node.nodeId}
+              name={node.name}
+              identifier={node.identifier}
+              metadata={node.metadata}
+            />
           ))}
         </TableBody>
       </Table>

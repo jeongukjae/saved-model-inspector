@@ -98,19 +98,19 @@ export default function Visualizer({ savedModelPb }) {
           <Box margin={"10px 0"}>
             <ul className={classes.list}>
               <li>
-                <Typography variant="p" component="p">
+                <Typography component="p">
                   TensorFlow Version:{" "}
                   <code>{savedModelPb.metaGraphsList[metaGraphIndex].metaInfoDef.tensorflowVersion}</code>
                 </Typography>
               </li>
               <li>
-                <Typography variant="p" component="p">
+                <Typography component="p">
                   TensorFlow Git Version:{" "}
                   <code>{savedModelPb.metaGraphsList[metaGraphIndex].metaInfoDef.tensorflowGitVersion}</code>
                 </Typography>
               </li>
               <li>
-                <Typography variant="p" component="p">
+                <Typography component="p">
                   Tags: <code>[{savedModelPb.metaGraphsList[metaGraphIndex].metaInfoDef.tagsList.join(", ")}]</code>
                 </Typography>
               </li>
@@ -158,7 +158,15 @@ export default function Visualizer({ savedModelPb }) {
       </TabPanel>
       <TabPanel value={tabIndex} index={2}>
         {/* Model Graph */}
-        {savedModelPb && <ModelGraphViewer objectGraphDefList={objectGraphDefList} />}
+        {savedModelPb && (
+          <ModelGraphViewer
+            objectGraphDefList={objectGraphDefList}
+            functionList={savedModelPb.metaGraphsList[metaGraphIndex].graphDef.library.functionList}
+            concreteFunctionsMap={Object.fromEntries(
+              savedModelPb.metaGraphsList[metaGraphIndex].objectGraphDef.concreteFunctionsMap
+            )}
+          />
+        )}
       </TabPanel>
     </Container>
   )
@@ -185,9 +193,7 @@ function ToggleButton({ expanded, setExpand, children }) {
   return (
     <Button onClick={handleExpandClick} aria-expanded={expanded}>
       <ExpandMoreIcon className={clsx(classes.expand, { [classes.expandOpen]: expanded })} />
-      <Typography variant="p" component="div">
-        {children}
-      </Typography>
+      <Typography component="div">{children}</Typography>
     </Button>
   )
 }
@@ -203,11 +209,7 @@ function TabPanel(props) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <Box p={3}>{children}</Box>}
     </div>
   )
 }

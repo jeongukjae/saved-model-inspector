@@ -50,9 +50,7 @@ function Row({ signatureDef }) {
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box margin={2}>
-              <Typography variant="p" component="div">
-                Inputs Map
-              </Typography>
+              <Typography component="div">Inputs Map</Typography>
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
@@ -79,7 +77,7 @@ function Row({ signatureDef }) {
               </Table>
             </Box>
             <Box margin={2}>
-              <Typography variant="p" gutterBottom component="div">
+              <Typography gutterBottom component="div">
                 Outputs Map
               </Typography>
               <Table size="small" aria-label="purchases">
