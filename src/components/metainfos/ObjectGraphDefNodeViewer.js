@@ -33,12 +33,12 @@ export default function ObjectGraphDefNodeViewer({ nodesList }) {
 
 const useNodeTableRowStyle = makeStyles((theme) => ({
   expand: {
-    transform: "rotate(180deg)",
+    transform: "rotate(0deg)",
     marginLeft: "auto",
     transition: theme.transitions.create("transform", { duration: theme.transitions.duration.shortest }),
   },
   expandOpen: {
-    transform: "rotate(0deg)",
+    transform: "rotate(180deg)",
   },
   button: {
     padding: 0,
