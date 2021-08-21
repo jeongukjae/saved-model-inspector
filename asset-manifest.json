@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/saved-model-visualizer/static/js/main.9c63b185.chunk.js",
-    "main.js.map": "/saved-model-visualizer/static/js/main.9c63b185.chunk.js.map",
-    "runtime-main.js": "/saved-model-visualizer/static/js/runtime-main.752dfabe.js",
-    "runtime-main.js.map": "/saved-model-visualizer/static/js/runtime-main.752dfabe.js.map",
-    "static/js/2.8954a496.chunk.js": "/saved-model-visualizer/static/js/2.8954a496.chunk.js",
-    "static/js/2.8954a496.chunk.js.map": "/saved-model-visualizer/static/js/2.8954a496.chunk.js.map",
-    "static/js/3.bb49b625.chunk.js": "/saved-model-visualizer/static/js/3.bb49b625.chunk.js",
-    "static/js/3.bb49b625.chunk.js.map": "/saved-model-visualizer/static/js/3.bb49b625.chunk.js.map",
+    "main.js": "/saved-model-visualizer/static/js/main.acbadb58.chunk.js",
+    "main.js.map": "/saved-model-visualizer/static/js/main.acbadb58.chunk.js.map",
+    "runtime-main.js": "/saved-model-visualizer/static/js/runtime-main.2112918b.js",
+    "runtime-main.js.map": "/saved-model-visualizer/static/js/runtime-main.2112918b.js.map",
+    "static/js/2.249fe2ba.chunk.js": "/saved-model-visualizer/static/js/2.249fe2ba.chunk.js",
+    "static/js/2.249fe2ba.chunk.js.map": "/saved-model-visualizer/static/js/2.249fe2ba.chunk.js.map",
+    "static/js/3.33ef8aef.chunk.js": "/saved-model-visualizer/static/js/3.33ef8aef.chunk.js",
+    "static/js/3.33ef8aef.chunk.js.map": "/saved-model-visualizer/static/js/3.33ef8aef.chunk.js.map",
     "index.html": "/saved-model-visualizer/index.html",
-    "static/js/2.8954a496.chunk.js.LICENSE.txt": "/saved-model-visualizer/static/js/2.8954a496.chunk.js.LICENSE.txt"
+    "static/js/2.249fe2ba.chunk.js.LICENSE.txt": "/saved-model-visualizer/static/js/2.249fe2ba.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.752dfabe.js",
-    "static/js/2.8954a496.chunk.js",
-    "static/js/main.9c63b185.chunk.js"
+    "static/js/runtime-main.2112918b.js",
+    "static/js/2.249fe2ba.chunk.js",
+    "static/js/main.acbadb58.chunk.js"
   ]
 }
