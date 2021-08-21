@@ -21,7 +21,7 @@ export default function Header() {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            SavedModel Visualizer
+            SavedModel Inspector
           </Typography>
           <Button color="inherit">GitHub</Button>
         </Toolbar>

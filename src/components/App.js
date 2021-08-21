@@ -1,6 +1,6 @@
 import Header from "./Header"
 import FileUploader from "./FileUploader"
-import Visualizer from "./Visualizer"
+import Inspector from "./Inspector"
 import { useState } from "react"
 import Box from "@material-ui/core/Box"
 import { makeStyles } from "@material-ui/core"
@@ -28,7 +28,7 @@ export default function App() {
       ) : (
         <></>
       )}
-      <Visualizer rawSavedModelPb={savedModelPb} />
+      <Inspector rawSavedModelPb={savedModelPb} />
     </div>
   )
 }

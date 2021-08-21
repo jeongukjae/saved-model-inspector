@@ -1,3 +1,3 @@
-# saved-model-visualizer
+# saved-model-inspector
 
-visualize tensorflow saved model on web
+inspect tensorflow saved model on web

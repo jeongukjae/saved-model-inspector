@@ -33,7 +33,7 @@ const useStyles = makeStyles({
   },
 })
 
-export default function Visualizer({ rawSavedModelPb }) {
+export default function Inspector({ rawSavedModelPb }) {
   const classes = useStyles()
 
   const [savedModelPb, setSavedModelPb] = useState()

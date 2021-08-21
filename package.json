@@ -1,5 +1,5 @@
 {
-  "name": "saved-model-visualizer",
+  "name": "saved-model-inspector",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -57,5 +57,5 @@
     "eslint-plugin-prettier": "^3.4.0",
     "prettier": "^2.3.2"
   },
-  "homepage": "/saved-model-visualizer/"
+  "homepage": "/saved-model-inspector/"
 }
