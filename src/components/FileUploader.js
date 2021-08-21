@@ -21,6 +21,7 @@ export default function FileUploader({ onRead, handleReadingState }) {
     fileReader.addEventListener("load", (event) => {
       const savedModelPb = SavedModel.deserializeBinary(event.target.result).toObject()
 
+      console.log("saved model pb:")
       console.log(savedModelPb)
 
       if (handleReadingState) handleReadingState(false)

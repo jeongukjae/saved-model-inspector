@@ -16,53 +16,13 @@ export default function ObjectGraphDefNodeViewer({ nodesList }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {nodesList[0].childrenList.flatMap((child, index) =>
-            getListOfTableFromFirstChild(child, nodesList, `node-${index}`)
-          )}
+          {nodesList.map((node, index) => (
+            <NodeTableRow nodeId={node.nodeId} name={node.name} identifier={node.identifier} metadata={node.metadata} />
+          ))}
         </TableBody>
       </Table>
     </>
   )
-}
-
-function getListOfTableFromFirstChild(child, nodesList, key, localName = "") {
-  if (
-    !nodesList[child.nodeId].userObject ||
-    (!nodesList[child.nodeId].userObject.identifier.startsWith("_tf_keras") &&
-      nodesList[child.nodeId].userObject.identifier !== "_generic_user_object" &&
-      nodesList[child.nodeId].userObject.identifier !== "trackable_list_wrapper")
-  ) {
-    return []
-  }
-
-  if (child.localName === "keras_api" && nodesList[child.nodeId].userObject.identifier === "_generic_user_object")
-    return []
-
-  if (
-    nodesList[child.nodeId].userObject.identifier === "trackable_list_wrapper" &&
-    ["variables", "regularization_losses", "trainable_variables", "state_spec"].includes(child.localName)
-  ) {
-    return []
-  }
-  // if (child.localName === "keras_api") return []
-
-  let items = [
-    <NodeTableRow
-      key={key}
-      nodeId={child.nodeId}
-      name={localName + child.localName}
-      identifier={nodesList[child.nodeId].userObject.identifier}
-      metadata={nodesList[child.nodeId].userObject.metadata}
-    />,
-  ]
-
-  items = items.concat(
-    nodesList[child.nodeId].childrenList.flatMap((child_, index) =>
-      getListOfTableFromFirstChild(child_, nodesList, `${key}-${index}`, `${localName}${child.localName}.`)
-    )
-  )
-
-  return items
 }
 
 const useNodeTableRowStyle = makeStyles((theme) => ({

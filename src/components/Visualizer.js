@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import clsx from "clsx"
 import SignatureDefTab from "./SignatureDefTab"
 import AssetViewer from "./metainfos/AssetViewer"
@@ -17,6 +17,7 @@ import {
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
 import OpListViewer from "./metainfos/OpListViewer"
 import ObjectGraphDefNodeViewer from "./metainfos/ObjectGraphDefNodeViewer"
+import ModelGraphViewer from "./metainfos/ModelGraphViewer"
 
 const useStyles = makeStyles({
   selectBox: {
@@ -33,15 +34,31 @@ const useStyles = makeStyles({
 })
 
 export default function Visualizer({ savedModelPb }) {
-  const [value, setValue] = useState(0)
-  const handleChange = (_, newValue) => setValue(newValue)
+  const classes = useStyles()
+
+  const [tabIndex, setTabIndex] = useState(0)
+  const handleTabIndexChange = (_, newValue) => setTabIndex(newValue)
   const [metaGraphIndex, setMetaGraphIndex] = useState(0)
   const handleSetMetaGraphIndex = (e) => setMetaGraphIndex(e.target.value)
-  const classes = useStyles()
 
   const [opListViewCollapse, setopListViewCollapse] = useState(false)
   const [assetFileViewCollapse, setAssetFileViewCollapse] = useState(false)
   const [objectGraphDefCollapse, setObjectGraphDefCollapse] = useState(false)
+
+  const [objectGraphDefList, setObjectGraphDefList] = useState([])
+  useEffect(() => {
+    if (!savedModelPb) {
+      setObjectGraphDefList([])
+    } else {
+      setObjectGraphDefList(
+        convertObjectGraphDefNodesList(
+          savedModelPb.metaGraphsList[metaGraphIndex].objectGraphDef.nodesList,
+          savedModelPb.metaGraphsList[metaGraphIndex].objectGraphDef.nodesList[0],
+          ""
+        )
+      )
+    }
+  }, [savedModelPb, setObjectGraphDefList, metaGraphIndex])
 
   return (
     <Container maxWidth="md">
@@ -64,18 +81,18 @@ export default function Visualizer({ savedModelPb }) {
       )}
 
       <Tabs
-        value={value}
+        value={tabIndex}
         indicatorColor="primary"
         textColor="primary"
-        onChange={handleChange}
+        onChange={handleTabIndexChange}
         aria-label="disabled tabs example"
         variant="fullWidth"
       >
         <Tab label="Meta Infos" />
         <Tab label="Signature Defs" />
-        <Tab label="Model Graph" disabled />
+        <Tab label="Model Graph" />
       </Tabs>
-      <TabPanel value={value} index={0}>
+      <TabPanel value={tabIndex} index={0}>
         {/* Meta Infos */}
         {savedModelPb && (
           <Box margin={"10px 0"}>
@@ -129,20 +146,19 @@ export default function Visualizer({ savedModelPb }) {
               Object Graph Def Nodes
             </ToggleButton>
             <Collapse in={objectGraphDefCollapse}>
-              <ObjectGraphDefNodeViewer
-                nodesList={savedModelPb.metaGraphsList[metaGraphIndex].objectGraphDef.nodesList}
-              />
+              <ObjectGraphDefNodeViewer nodesList={objectGraphDefList} />
             </Collapse>
           </Box>
         )}
       </TabPanel>
-      <TabPanel value={value} index={1}>
+      <TabPanel value={tabIndex} index={1}>
         {savedModelPb && (
           <SignatureDefTab signatureDefMapList={savedModelPb.metaGraphsList[metaGraphIndex].signatureDefMap} />
         )}
       </TabPanel>
-      <TabPanel value={value} index={2}>
+      <TabPanel value={tabIndex} index={2}>
         {/* Model Graph */}
+        {savedModelPb && <ModelGraphViewer objectGraphDefList={objectGraphDefList} />}
       </TabPanel>
     </Container>
   )
@@ -194,4 +210,44 @@ function TabPanel(props) {
       )}
     </div>
   )
+}
+
+function convertObjectGraphDefNodesList(nodesList, node, localName) {
+  let results = []
+
+  for (const child of node.childrenList) {
+    const childNode = nodesList[child.nodeId]
+    const childUserObject = childNode.userObject
+
+    if (
+      (!childUserObject ||
+        (!childUserObject.identifier.startsWith("_tf_keras") &&
+          childUserObject.identifier !== "_generic_user_object" &&
+          childUserObject.identifier !== "trackable_list_wrapper")) &&
+      (!childNode.pb_function || childNode.pb_function.concreteFunctionsList.length === 0)
+    )
+      continue
+
+    if (child.localName === "keras_api" && childUserObject.identifier === "_generic_user_object") continue
+    if (
+      childUserObject &&
+      childUserObject.identifier === "trackable_list_wrapper" &&
+      (child.localName.endsWith("variables") ||
+        child.localName.endsWith("regularization_losses") ||
+        child.localName.endsWith("trainable_variables"))
+    )
+      continue
+
+    results.push({
+      nodeId: child.nodeId,
+      name: localName + child.localName,
+      identifier: childUserObject ? childUserObject.identifier : "",
+      metadata: childUserObject ? childUserObject.metadata : "",
+      pbFunction: childNode.pb_function ? childNode.pb_function.concreteFunctionsList : [],
+    })
+
+    results = results.concat(convertObjectGraphDefNodesList(nodesList, childNode, `${localName}${child.localName}.`))
+  }
+
+  return results
 }
