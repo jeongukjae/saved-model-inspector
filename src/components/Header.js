@@ -23,7 +23,9 @@ export default function Header() {
           <Typography variant="h6" className={classes.title}>
             SavedModel Inspector
           </Typography>
-          <Button color="inherit">GitHub</Button>
+          <Button color="inherit" component="a" href="https://github.com/jeongukjae/saved-model-inspector">
+            GitHub
+          </Button>
         </Toolbar>
       </AppBar>
     </div>
