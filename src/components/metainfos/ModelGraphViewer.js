@@ -111,8 +111,46 @@ export default function ModelGraphViewer({ objectGraphDefList, functionList, con
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {flattenSignature(functionSignature.canonicalDef.getCanonicalizedInputSignature()).map(
-                      (val, index) => (
+                    {functionSignature.canonicalDef &&
+                      flattenSignature(functionSignature.canonicalDef.getCanonicalizedInputSignature()).map(
+                        (val, index) => (
+                          <TableRow key={`signature-${index}`}>
+                            <TableCell component="th" scope="row">
+                              <code>{val.getName()}</code>
+                            </TableCell>
+                            <TableCell>
+                              <code>{Object.keys(DataType).find((key) => DataType[key] === val.getDtype())}</code>
+                            </TableCell>
+                            <TableCell>
+                              <code>
+                                [
+                                {val
+                                  .getShape()
+                                  .toObject()
+                                  .dimList.map((v) => v.size)
+                                  .join(", ")}
+                                ]
+                              </code>
+                            </TableCell>
+                          </TableRow>
+                        )
+                      )}
+                  </TableBody>
+                </Table>
+              </li>
+              <li>
+                <Typography>Outputs</Typography>
+                <Table size="small">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Name</TableCell>
+                      <TableCell>Data Type</TableCell>
+                      <TableCell>Shape</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {functionSignature.canonicalDef &&
+                      flattenSignature(functionSignature.canonicalDef.getOutputSignature()).map((val, index) => (
                         <TableRow key={`signature-${index}`}>
                           <TableCell component="th" scope="row">
                             <code>{val.getName()}</code>
@@ -132,44 +170,7 @@ export default function ModelGraphViewer({ objectGraphDefList, functionList, con
                             </code>
                           </TableCell>
                         </TableRow>
-                      )
-                    )}
-                  </TableBody>
-                </Table>
-              </li>
-              <li>
-                <Typography>Outputs</Typography>
-                <Table size="small">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Name</TableCell>
-                      <TableCell>Data Type</TableCell>
-                      <TableCell>Shape</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {/* getCanonicalizedInputSignature */}
-                    {flattenSignature(functionSignature.canonicalDef.getOutputSignature()).map((val, index) => (
-                      <TableRow key={`signature-${index}`}>
-                        <TableCell component="th" scope="row">
-                          <code>{val.getName()}</code>
-                        </TableCell>
-                        <TableCell>
-                          <code>{Object.keys(DataType).find((key) => DataType[key] === val.getDtype())}</code>
-                        </TableCell>
-                        <TableCell>
-                          <code>
-                            [
-                            {val
-                              .getShape()
-                              .toObject()
-                              .dimList.map((v) => v.size)
-                              .join(", ")}
-                            ]
-                          </code>
-                        </TableCell>
-                      </TableRow>
-                    ))}
+                      ))}
                   </TableBody>
                 </Table>
               </li>
