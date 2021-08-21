@@ -1,6 +1,6 @@
 {
-  "short_name": "SavedModel Visualizer",
-  "name": "TensorFlow Saved Model Visualizer",
+  "short_name": "SavedModel Inspector",
+  "name": "TensorFlow Saved Model Inspector",
   "icons": [],
   "start_url": ".",
   "display": "standalone",
