@@ -103,6 +103,6 @@ dist
 # TernJS port file
 .tern-port
 
-# for saved model visualizer
+# for saved model inspector
 /tmp/
 .DS_Store
