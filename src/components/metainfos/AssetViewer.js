@@ -4,7 +4,7 @@ import { DataType } from "../../proto/tensorflow/core/framework/types_pb"
 export default function AssetViewer({ assetFileDefList }) {
   return (
     <>
-      <Table size="small" aria-label="purchases">
+      <Table size="small">
         <TableHead>
           <TableRow>
             <TableCell>File Name</TableCell>

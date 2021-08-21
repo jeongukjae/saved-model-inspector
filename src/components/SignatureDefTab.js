@@ -51,7 +51,7 @@ function Row({ signatureDef }) {
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box margin={2}>
               <Typography component="div">Inputs Map</Typography>
-              <Table size="small" aria-label="purchases">
+              <Table size="small">
                 <TableHead>
                   <TableRow>
                     <TableCell>Name</TableCell>
@@ -80,7 +80,7 @@ function Row({ signatureDef }) {
               <Typography gutterBottom component="div">
                 Outputs Map
               </Typography>
-              <Table size="small" aria-label="purchases">
+              <Table size="small">
                 <TableHead>
                   <TableRow>
                     <TableCell>Name</TableCell>

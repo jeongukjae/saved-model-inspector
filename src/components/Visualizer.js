@@ -33,8 +33,13 @@ const useStyles = makeStyles({
   },
 })
 
-export default function Visualizer({ savedModelPb }) {
+export default function Visualizer({ rawSavedModelPb }) {
   const classes = useStyles()
+
+  const [savedModelPb, setSavedModelPb] = useState()
+  useEffect(() => {
+    if (rawSavedModelPb) setSavedModelPb(rawSavedModelPb.toObject())
+  }, [rawSavedModelPb, setSavedModelPb])
 
   const [tabIndex, setTabIndex] = useState(0)
   const handleTabIndexChange = (_, newValue) => setTabIndex(newValue)
@@ -162,9 +167,10 @@ export default function Visualizer({ savedModelPb }) {
           <ModelGraphViewer
             objectGraphDefList={objectGraphDefList}
             functionList={savedModelPb.metaGraphsList[metaGraphIndex].graphDef.library.functionList}
-            concreteFunctionsMap={Object.fromEntries(
-              savedModelPb.metaGraphsList[metaGraphIndex].objectGraphDef.concreteFunctionsMap
-            )}
+            concreteFunctionsMap={rawSavedModelPb
+              .getMetaGraphsList()
+              [metaGraphIndex].getObjectGraphDef()
+              .getConcreteFunctionsMap()}
           />
         )}
       </TabPanel>

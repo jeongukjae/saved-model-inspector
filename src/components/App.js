@@ -28,7 +28,7 @@ export default function App() {
       ) : (
         <></>
       )}
-      <Visualizer savedModelPb={savedModelPb} />
+      <Visualizer rawSavedModelPb={savedModelPb} />
     </div>
   )
 }

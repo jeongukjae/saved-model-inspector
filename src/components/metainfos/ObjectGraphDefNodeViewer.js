@@ -6,7 +6,7 @@ import clsx from "clsx"
 export default function ObjectGraphDefNodeViewer({ nodesList }) {
   return (
     <>
-      <Table size="small" aria-label="purchases">
+      <Table size="small">
         <TableHead>
           <TableRow>
             <TableCell>Node Id</TableCell>

@@ -4,7 +4,7 @@ import { DataType } from "../../proto/tensorflow/core/framework/types_pb"
 export default function OpListViewer({ opListDefList }) {
   return (
     <>
-      <Table size="small" aria-label="purchases">
+      <Table size="small">
         <TableHead>
           <TableRow>
             <TableCell>Op Name</TableCell>
