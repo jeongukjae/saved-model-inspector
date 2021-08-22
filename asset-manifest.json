@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/saved-model-inspector/static/js/main.3a6b6cc0.chunk.js",
-    "main.js.map": "/saved-model-inspector/static/js/main.3a6b6cc0.chunk.js.map",
+    "main.js": "/saved-model-inspector/static/js/main.f049751b.chunk.js",
+    "main.js.map": "/saved-model-inspector/static/js/main.f049751b.chunk.js.map",
     "runtime-main.js": "/saved-model-inspector/static/js/runtime-main.365a2c48.js",
     "runtime-main.js.map": "/saved-model-inspector/static/js/runtime-main.365a2c48.js.map",
     "static/js/2.506afb3d.chunk.js": "/saved-model-inspector/static/js/2.506afb3d.chunk.js",
@@ -14,6 +14,6 @@
   "entrypoints": [
     "static/js/runtime-main.365a2c48.js",
     "static/js/2.506afb3d.chunk.js",
-    "static/js/main.3a6b6cc0.chunk.js"
+    "static/js/main.f049751b.chunk.js"
   ]
 }
